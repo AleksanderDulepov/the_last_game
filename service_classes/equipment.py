@@ -49,12 +49,10 @@ class Equipment():
     def __init__(self):
         self.equipment: EquipmentData = self._upload_equipment_data()
 
-
     def get_weapon(self, weapon_name: str) -> Weapon:
         for weapon in self.equipment.weapons:
             if weapon_name == weapon.name:
                 return weapon
-
 
     def get_armor(self, armor_name: str) -> Armor:
         for armor in self.equipment.armors:
@@ -80,6 +78,3 @@ class Equipment():
             return equipment_instance
         except marshmallow.exceptions.ValidationError:
             raise ValueError
-
-
-

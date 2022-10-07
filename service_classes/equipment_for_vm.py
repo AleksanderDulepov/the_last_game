@@ -48,7 +48,6 @@ class Equipment():
     def __init__(self):
         self.equipment: EquipmentData = self._upload_equipment_data()
 
-
     def get_weapon(self, weapon_name: str) -> Optional[Weapon]:
         for weapon in self.equipment.weapons:
             if weapon_name == weapon.name:
@@ -80,6 +79,3 @@ class Equipment():
             return equipment_instance
         except marshmallow.exceptions.ValidationError:
             raise ValueError
-
-
-

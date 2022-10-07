@@ -36,7 +36,7 @@ class BaseUnit(ABC):
             target_armor = 0
 
         # результирующий урон
-        damage_common = round(attacker_damage - target_armor,1)
+        damage_common = round(attacker_damage - target_armor, 1)
         # вычет выносливости атакующего после удара
         self.reduce_stamina(self.weapon.stamina_per_hit)
         # вычет выносливости цели после удара
@@ -45,12 +45,12 @@ class BaseUnit(ABC):
         return damage_common
 
     def get_damage(self, damage: float) -> None:
-        self.hp = round(self.hp -damage,1)
+        self.hp = round(self.hp - damage, 1)
         if self.hp < 0:
             self.hp = 0
 
     def reduce_stamina(self, stamina: float) -> None:
-        self.stamina=round(self.stamina-stamina,1)
+        self.stamina = round(self.stamina - stamina, 1)
         if self.stamina < 0:
             self.stamina = 0
 
@@ -64,6 +64,7 @@ class BaseUnit(ABC):
     @abstractmethod
     def do_hit(self, target: type(__init__)) -> str:
         pass
+
 
 class PlayerUnit(BaseUnit):
 
@@ -81,6 +82,7 @@ class PlayerUnit(BaseUnit):
             return f"{self.name} используя {self.weapon.name} пробивает {target.armor.name} соперника и наносит {damage} урона."
         else:
             return f"{self.name} используя {self.weapon.name} наносит удар, но {target.armor.name} соперника его останавливает."
+
 
 class EnemyUnit(BaseUnit):
 

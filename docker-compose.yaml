@@ -6,7 +6,11 @@ services:
     build:
       context: .
     image: aleksanderdulepov/game_repo
-    command: gunicorn --bind 0.0.0.0:5000 wsgi:app
+    entrypoint: ["/bin/sh","-c"]
+    command:
+      - |
+        cat ./service_classes/equipment_for_vm.py | envsubst > ./service_classes/equipment.py
+        gunicorn --bind 0.0.0.0:5000 wsgi:app
     restart: always
 
   nginx:

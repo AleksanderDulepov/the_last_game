@@ -12,8 +12,8 @@ class BaseUnit(ABC):
         self.unit_class: UnitClass = unit_class
         self.hp: float = self.unit_class.max_health
         self.stamina: float = self.unit_class.max_stamina
-        self.weapon: Weapon = None
-        self.armor: Armor = None
+        self.weapon: Weapon
+        self.armor: Armor
         self._is_skill_used: bool = False
 
     def equip_weapon(self, weapon: Weapon) -> None:

@@ -1,9 +1,9 @@
-from typing import Optional
+from typing import Optional, Dict, Any
 
 from service_classes.unit import BaseUnit, PlayerUnit, EnemyUnit
 
 class BaseSingleton(type):
-    _instances = {}
+    _instances: Dict[type,Any] = {}
 
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
@@ -14,8 +14,8 @@ class BaseSingleton(type):
 
 class Arena(metaclass=BaseSingleton):
     STAMINA_PER_ROUND = 1
-    player = None
-    enemy = None
+    player:PlayerUnit
+    enemy:EnemyUnit
     game_is_running = False
 
 
@@ -41,7 +41,7 @@ class Arena(metaclass=BaseSingleton):
         # self.game_over()
         # return self.battle_result
 
-    def check_hp(self) -> Optional[str]:
+    def check_hp(self) -> None:
         battle_result = None
         if self.player.hp <= 0 and self.enemy.hp <= 0:
             battle_result = f"Ничья"
@@ -56,7 +56,7 @@ class Arena(metaclass=BaseSingleton):
         return None
 
     def game_over(self) -> None:
-        self._instances = {}
+        self._instances:Dict[type,Any] = {}
         self.game_is_running = False
 
     def recover_stamina(self, instance: BaseUnit) -> None:

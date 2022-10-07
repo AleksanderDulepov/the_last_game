@@ -55,9 +55,9 @@ def end_fight():
 @app.route("/choose-hero/", methods=['POST', 'GET'])
 def choose_hero():
     if request.method == 'GET':
-        return render_template('hero_choosing.html', hero_or_enemy="Выберите героя", hero_or_enemy_page ="/choose-hero/",
-                               result_classes=unit_classes.keys(), result_weapons = all_equipment.get_weapon_names(),\
-                                                                                    result_armors =
+        return render_template('hero_choosing.html', hero_or_enemy="Выберите героя", hero_or_enemy_page="/choose-hero/",
+                               result_classes=unit_classes.keys(), result_weapons=all_equipment.get_weapon_names(), \
+                               result_armors=
                                all_equipment.get_armor_names())
     if request.method == 'POST':
         data = request.form
@@ -67,12 +67,14 @@ def choose_hero():
         heroes['player'] = player_instance
         return redirect('/choose-enemy/', code=302)
 
+
 @app.route("/choose-enemy/", methods=['POST', 'GET'])
 def choose_enemy():
     if request.method == 'GET':
-        return render_template('hero_choosing.html', hero_or_enemy="Выберите врага", hero_or_enemy_page ="/choose-enemy/",
-                               result_classes=unit_classes.keys(), result_weapons =
-        all_equipment.get_weapon_names(), result_armors = all_equipment.get_armor_names())
+        return render_template('hero_choosing.html', hero_or_enemy="Выберите врага",
+                               hero_or_enemy_page="/choose-enemy/",
+                               result_classes=unit_classes.keys(), result_weapons=
+                               all_equipment.get_weapon_names(), result_armors=all_equipment.get_armor_names())
     if request.method == 'POST':
         data = request.form
         enemy_instance = EnemyUnit(name=data.get("name"), unit_class=unit_classes.get(data.get("unit_class")))
@@ -80,6 +82,7 @@ def choose_enemy():
         enemy_instance.equip_armor(all_equipment.get_armor(data.get("armor")))
         heroes['enemy'] = enemy_instance
         return redirect('/fight/', code=302)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

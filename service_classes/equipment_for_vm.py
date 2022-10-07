@@ -1,5 +1,4 @@
 import json
-import os.path
 import random
 from dataclasses import dataclass
 from typing import List, Optional
@@ -50,16 +49,17 @@ class Equipment():
         self.equipment: EquipmentData = self._upload_equipment_data()
 
 
-    def get_weapon(self, weapon_name: str) -> Weapon:
+    def get_weapon(self, weapon_name: str) -> Optional[Weapon]:
         for weapon in self.equipment.weapons:
             if weapon_name == weapon.name:
                 return weapon
+        return None
 
-
-    def get_armor(self, armor_name: str) -> Armor:
+    def get_armor(self, armor_name: str) -> Optional[Armor]:
         for armor in self.equipment.armors:
             if armor_name == armor.name:
                 return armor
+        return None
 
     def get_weapon_names(self) -> List[str]:
         return [weapon.name for weapon in self.equipment.weapons]
@@ -72,7 +72,7 @@ class Equipment():
 
         EquipmentSchema = marshmallow_dataclass.class_schema(EquipmentData)
 
-        with open("../data/equipment.json", "r", encoding="utf-8") as file:
+        with open("$PWD/data/equipment.json", "r", encoding="utf-8") as file:
             data = json.load(file)
 
         try:

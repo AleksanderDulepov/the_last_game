@@ -5,6 +5,7 @@ services:
   app:
     build:
       context: .
+    image: aleksanderdulepov/game_repo
     command: gunicorn --bind 0.0.0.0:5000 wsgi:app
     restart: always
 
